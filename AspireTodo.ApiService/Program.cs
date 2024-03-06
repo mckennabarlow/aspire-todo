@@ -21,7 +21,19 @@ var app = builder.Build();
 app.UseExceptionHandler();
 
 // Http Api that returns the full list of todos.
-app.MapGet("/todos", (TodoDatabaseDbContext todoDatabaseDbContext) => todoDatabaseDbContext.TodoItems.ToArray());
+// app.MapGet("/todos", (TodoDatabaseDbContext todoDatabaseDbContext) => todoDatabaseDbContext.TodoItems.ToArray());
+
+// A static list of TodoItems to get us started
+List<TodoItem> todoItems = new List<TodoItem>
+{
+    new("Build the API", false),
+    new("Build the Frontend", false),
+    new("Deploy the app", false)
+};
+
+// Http Api that returns the full list of todos.
+app.MapGet("/todos", () => todoItems);
+
 
 app.MapDefaultEndpoints();
 
